@@ -8,7 +8,7 @@ import rospy
 import cv2
 import mediapipe as mp
 from visualization_msgs.msg import Marker
-from geometry_msgs.msg import Pose, Point, Quaternion
+from geometry_msgs.msg import Point, Quaternion
 from nav_msgs.msg import Odometry
 from auto_nav.msg import RobotInfo
 
