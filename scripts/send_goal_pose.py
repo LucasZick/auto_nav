@@ -4,8 +4,8 @@ import rospy
 import actionlib
 import os
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
-from geometry_msgs.msg import Pose
 from std_msgs.msg import Empty
+from auto_nav.msg import RobotInfo
 
 debug_mode = os.getenv('AUTO_NAV_DEBUG', 'False').lower() == 'true' 
 
@@ -27,36 +27,29 @@ def done_cb(status, result):
 
 rospy.init_node('goal_pose')
 
-navclient = actionlib.SimpleActionClient('move_base', MoveBaseAction)
-navclient.wait_for_server()
-
-def position_callback(pose_msg):
-    x = pose_msg.position.x
-    y = pose_msg.position.y
-    z = pose_msg.position.z
-    orientation_x = pose_msg.orientation.x
-    orientation_y = pose_msg.orientation.y
-    orientation_z = pose_msg.orientation.z
-    orientation_w = pose_msg.orientation.w
-
+def send_goal_callback(goal_msg):
+    navclient = actionlib.SimpleActionClient(f'robot{goal_msg.robot_id}/move_base', MoveBaseAction)
+    navclient.wait_for_server()
+    
     goal = MoveBaseGoal()
     goal.target_pose.header.frame_id = "map"
     goal.target_pose.header.stamp = rospy.Time.now()
-    goal.target_pose.pose.position.x = x
-    goal.target_pose.pose.position.y = y
-    goal.target_pose.pose.position.z = z
-    goal.target_pose.pose.orientation.x = orientation_x
-    goal.target_pose.pose.orientation.y = orientation_y
-    goal.target_pose.pose.orientation.z = orientation_z
-    goal.target_pose.pose.orientation.w = orientation_w
+    goal.target_pose.pose.position.x = goal_msg.pose.position.x
+    goal.target_pose.pose.position.y = goal_msg.pose.position.y
+    goal.target_pose.pose.position.z = goal_msg.pose.position.z
+    goal.target_pose.pose.orientation.x = goal_msg.pose.orientation.x
+    goal.target_pose.pose.orientation.y = goal_msg.pose.orientation.y
+    goal.target_pose.pose.orientation.z = goal_msg.pose.orientation.z
+    goal.target_pose.pose.orientation.w = goal_msg.pose.orientation.w
     
     navclient.send_goal(goal, done_cb, active_cb, feedback_cb)
 
-position_subscriber = rospy.Subscriber('hand_position', Pose, position_callback)
-
-def restart_robot_callback():
+def restart_robot_callback(robot_id):
+    navclient = actionlib.SimpleActionClient(f'robot{robot_id}/move_base', MoveBaseAction)
+    navclient.wait_for_server()
     navclient.cancel_all_goals()
     rospy.loginfo("Restarting the robot")
 
+position_subscriber = rospy.Subscriber('send_goal', RobotInfo, send_goal_callback)
 restart_robot_subscriber = rospy.Subscriber('restart_robot', Empty, restart_robot_callback)
 rospy.spin()
