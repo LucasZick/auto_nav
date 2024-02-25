@@ -1,0 +1,4 @@
+<launch>
+  <include file="$(find auto_nav)/launch/environment_multiple_robots.launch" />
+  <include file="$(find auto_nav)/launch/autonav.launch" />
+</launch>

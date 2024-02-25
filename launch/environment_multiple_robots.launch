@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find multiple_turtlebots)/launch/simulation.launch" />
+  <include file="$(find multiple_turtlebots_nav)/launch/navigation.launch" />
+  <node name="init_pose" pkg="auto_nav" type="init_pose.py" output="screen" respawn="false"/>
+</launch>

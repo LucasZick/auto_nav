@@ -1,0 +1,13 @@
+<launch>
+  <arg name="world_name" default="labyrinth" />
+
+  <include file="$(find auto_nav)/launch/world.launch">
+    <arg name="world_name" value="$(arg world_name)" />
+  </include>
+  
+  <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
+    <arg name="map_file" value="$(find auto_nav)/worlds/$(arg world_name).yaml" />
+  </include>
+  
+  <node name="init_pose" pkg="auto_nav" type="init_pose.py" output="screen" respawn="false"/>
+</launch>

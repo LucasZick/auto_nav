@@ -1,0 +1,4 @@
+<launch>
+  <node name="marker_update" pkg="auto_nav" type="marker_update.py" output="screen"/>
+  <node name="send_goal_pose" pkg="auto_nav" type="send_goal_pose.py" output="screen"/>
+</launch>
