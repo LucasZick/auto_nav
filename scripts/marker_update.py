@@ -12,7 +12,7 @@ from geometry_msgs.msg import Point, Quaternion
 from nav_msgs.msg import Odometry
 from auto_nav.msg import RobotInfo
 
-num_robots = int(os.getenv('NUM_ROBOTS', '3'))
+num_robots = int(os.getenv('NUM_ROBOTS', '1'))
 debug_mode = os.getenv('AUTO_NAV_DEBUG', 'False').lower() == 'true'
 
 class Robot:
