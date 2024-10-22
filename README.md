@@ -15,7 +15,7 @@ This project implements the control of multiple TurtleBot3 robots with hand reco
 
 ## About the Project
 
-The TurtleBot3 Multi-Robot Control is an innovative system that combines hand recognition through the MediaPipe library with the ROS Navigation Stack to provide an intuitive control experience for mobile robots. The project aims to facilitate human-robot interaction and enable autonomous navigation in dynamic environments.
+AutoNav is an innovative system that combines hand recognition through the MediaPipe library with the ROS Navigation Stack to provide an intuitive control experience for mobile robots. The project aims to facilitate human-robot interaction and enable autonomous navigation in dynamic environments.
 
 ## Prerequisites
 
@@ -30,7 +30,7 @@ Make sure you have the following tools and libraries installed:
 Follow the steps below to install and set up the project locally:
 
 1. Clone the repository:
-   git clone https://github.com/LucasZick/turtlebot3-multirobot-control.git
+   git clone https://github.com/LucasZick/auto_nav.git
 
 2. Navigate to the project folder:
    cd turtlebot3-multirobot-control
@@ -49,7 +49,7 @@ To run the project, follow the instructions below:
    roslaunch turtlebot3_gazebo turtlebot3_world.launch
 
 3. Run the control node:
-   rosrun [your_package] [your_node]
+   rosrun auto_nav autonav.launch
 
 4. Use hand recognition control commands.
 
