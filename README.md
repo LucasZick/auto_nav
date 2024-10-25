@@ -1,83 +1,47 @@
-# TurtleBot3 Multi-Robot Control
 
-This project implements the control of multiple TurtleBot3 robots with hand recognition using MediaPipe and autonomous navigation through the ROS Navigation Stack. The entire system is coordinated by ROS, allowing intuitive interaction and autonomous movement of the robots.
+# Autonav
 
-## Table of Contents
+**Autonav** is a multi-robot control system developed to simplify operator interaction by using autonomous navigation and a simplified control model. This project is designed to operate with multiple TurtleBot3 robots but can be adapted to work with other robots with minimal adjustments.
 
-1. About the Project
-2. Prerequisites
-3. Installation
-4. How to Use
-5. Repository Structure
-6. Contributing
-7. License
-8. Contact
+## Project Purpose
 
-## About the Project
+Autonav focuses on:
+- Reducing operator interaction time through autonomous navigation.
+- Facilitating control of multiple robots with an intuitive interface and simplified commands, recognized by hand point tracking.
 
-AutoNav is an innovative system that combines hand recognition through the MediaPipe library with the ROS Navigation Stack to provide an intuitive control experience for mobile robots. The project aims to facilitate human-robot interaction and enable autonomous navigation in dynamic environments.
+## Requirements
 
-## Prerequisites
+To run Autonav, the following components are needed:
+- **ROS** (recommended: Noetic)
+- **Rviz** (for visualization and interface with the robots)
+- **Gazebo** (for simulation)
+- **Mediapipe** (for hand point recognition, used to generate navigation commands)
 
-Make sure you have the following tools and libraries installed:
+## Project Structure
 
-- ROS Noetic
-- MediaPipe
-- ROS dependencies for TurtleBot3
+The project follows the structure of a ROS package, with:
+- **scripts**: main code for the control system and commands.
+- **launch**: launch files to initialize the environment and robots.
+- **worlds**: files to configure simulation environments.
 
-## Installation
+### Test Results
 
-Follow the steps below to install and set up the project locally:
+The test results are available in the `results` folder. Note: the project has not yet been tested in a real-world environment.
 
-1. Clone the repository:
-   git clone https://github.com/LucasZick/auto_nav.git
+## Execution Instructions
 
-2. Navigate to the project folder:
-   cd turtlebot3-multirobot-control
+To run the project, follow these steps:
 
-3. Install the necessary dependencies (adjust as needed):
-   rosdep install --from-paths src --ignore-src -r -y
+1. Run the multi-robot environment launch file:
+   ```bash
+   roslaunch autonav environment_multiple_robots.launch
+   ```
+2. In another terminal, start the control system:
+   ```bash
+   roslaunch autonav autonav.launch
+   ```
 
-## How to Use
-
-To run the project, follow the instructions below:
-
-1. Start the ROS Master:
-   roscore
-
-2. Next, start the TurtleBot3 simulation:
-   roslaunch turtlebot3_gazebo turtlebot3_world.launch
-
-3. Run the control node:
-   rosrun auto_nav autonav.launch
-
-4. Use hand recognition control commands.
-
-## Repository Structure
-
-The structure of the repository is as follows:
-
-turtlebot3-multirobot-control/
-- .gitignore               # Ignores unwanted files in the repository
-- CMakeLists.txt           # CMake configuration file
-- package.xml              # Information about the ROS package
-- README.md                # Project documentation
-- models/                  # Models used
-- results/                 # Generated results
-- scripts/                 # Test scripts
-- worlds/                  # Simulation environments
-- msg/                     # Custom messages
-
-## Contributing
-
-Contributions are welcome! If you want to collaborate on the project, feel free to open an issue or submit a pull request.
-
-## License
-
-Distributed under the MIT License. See the LICENSE file for more information.
-
-## Contact
-
-Lucas Alexandre Zick  
-Email: lucas.zick07@edu.udesc.br  
-GitHub: LucasZick
+   Alternatively, you can use the command below to run both in a single terminal:
+   ```bash
+   roslaunch autonav main.launch
+   ```
